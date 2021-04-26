@@ -72,15 +72,20 @@ class ViewController: UIViewController {
     }
     
     private func removeMatchedCards() {
-        for index in shapesInView.indices {
-            if shapesInView[index] != nil, shapeToCard[shapesInView[index]!] == nil {
-                shapesInView[index] = nil
+        for (key, value) in shapeToCard {
+            if game.matchedCards.contains(value),
+                game.isMatched == nil {
+                
+                shapeToCard.removeValue(forKey: key)
             }
         }
         
-        for (key, value) in shapeToCard {
-            if game.matchedCards.contains(value) {
-                shapeToCard.removeValue(forKey: key)
+        for index in shapesInView.indices {
+            if shapesInView[index] != nil,
+                shapeToCard[shapesInView[index]!] == nil,
+                game.isMatched == nil {
+                
+                shapesInView[index] = nil
             }
         }
     }
@@ -133,30 +138,31 @@ class ViewController: UIViewController {
     }
     
     private func updateView() {
+        removeMatchedCards()
         for index in cardButtons.indices {
-            if index < shapesInView.count {
-                cardButtons[index].setAttributedTitle(shapesInView[index], for: .normal)
-                
-                if let shapeInView = shapesInView[index] {
-                    if shapeToCard[shapeInView] != nil, game.chosenCards.contains(shapeToCard[shapeInView]!) {
-                        if game.isMatched == true {
-                            cardButtons[index].backgroundColor = UIColor.green.withAlphaComponent(0.5)
-                        } else if game.isMatched == false {
-                            cardButtons[index].backgroundColor = UIColor.orange.withAlphaComponent(0.5)
-                        }
-                        cardButtons[index].layer.borderWidth = 3.0
-                    } else {
-                        cardButtons[index].layer.borderWidth = 0
-                        cardButtons[index].backgroundColor = .white
+            cardButtons[index].setAttributedTitle(shapesInView[index], for: .normal)
+            
+            if let shapeInView = shapesInView[index] {
+                if shapeToCard[shapeInView] != nil,
+                    game.chosenCards.contains(shapeToCard[shapeInView]!) {
+                    
+                    if game.isMatched == true {
+                        cardButtons[index].backgroundColor = UIColor.green.withAlphaComponent(0.5)
+                    } else if game.isMatched == false {
+                        cardButtons[index].backgroundColor = UIColor.orange.withAlphaComponent(0.5)
                     }
+                    cardButtons[index].layer.borderWidth = 3.0
+                } else {
+                    cardButtons[index].layer.borderWidth = 0
+                    cardButtons[index].backgroundColor = .white
                 }
             }
             
             if cardButtons[index].attributedTitle(for: .normal) == nil {
                 cardButtons[index].backgroundColor = .clear
+                cardButtons[index].layer.borderWidth = 0
             }
         }
-        removeMatchedCards()
     }
 }
 

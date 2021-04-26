@@ -27,6 +27,7 @@ struct SetGame {
                     matchedCards.insert(card)
                 }
             }
+            isMatched = nil
             chosenCards.removeAll()
             chosenCards.append(card)
         }
