@@ -60,6 +60,14 @@ class ViewController: UIViewController {
         loadCardsToView()
     }
     
+    private func removeMatchedCardsFromView() {
+        for shape in shapesInView {
+            if shape != nil, shapeToCard[shape!] == nil {
+                shapeToCard[shape!] = nil
+            }
+        }
+    }
+    
     private func initialLoad() {
         for index in 0..<24 {
             shapesInView.append(nil)
@@ -128,7 +136,7 @@ class ViewController: UIViewController {
         }
     }
     
-    private func removeMatchedCards() {
+//    private func removeMatchedCards() {
 //        for index in cardButtons.indices {
 //            if let card = shapeToCard[cardButtons[index].attributedTitle(for: .normal) ?? NSAttributedString(string: "")] {
 //                if game.matchedCards.contains(card) {
@@ -142,7 +150,7 @@ class ViewController: UIViewController {
 //                shapeToCard.removeValue(forKey: key)
 //            }
 //        }
-    }
+//    }
     
     private func updateView() {
 //        removeMatchedCards()
