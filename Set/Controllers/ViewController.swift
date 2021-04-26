@@ -33,10 +33,6 @@ class ViewController: UIViewController {
         }
     }
     
-
-    @IBAction func newGameButtonPressed(_ sender: UIButton) {
-    }
-    
     @IBAction func deal3MoreCardsButtonPressed() {
         loadCardsFromModel(3)
     }
@@ -143,7 +139,6 @@ class ViewController: UIViewController {
     }
     
     private func updateView() {
-        removeMatchedCardsFromView()
         for index in cardButtons.indices {
             if index < shapesInView.count {
                 cardButtons[index].setAttributedTitle(shapesInView[index], for: .normal)
@@ -164,11 +159,10 @@ class ViewController: UIViewController {
             }
             
             if cardButtons[index].attributedTitle(for: .normal) == nil {
-                cardButtons[index].isHidden = true
-            } else {
-                cardButtons[index].isHidden = false
+                cardButtons[index].backgroundColor = .clear
             }
         }
+        removeMatchedCardsFromView()
     }
 }
 
