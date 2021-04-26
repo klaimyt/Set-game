@@ -61,9 +61,15 @@ class ViewController: UIViewController {
     }
     
     private func removeMatchedCardsFromView() {
-        for shape in shapesInView {
-            if shape != nil, shapeToCard[shape!] == nil {
-                shapeToCard[shape!] = nil
+        for index in shapesInView.indices {
+            if shapesInView[index] != nil, shapeToCard[shapesInView[index]!] == nil {
+                shapesInView[index] = nil
+            }
+        }
+        
+        for (key, value) in shapeToCard {
+            if game.matchedCards.contains(value) {
+                shapeToCard.removeValue(forKey: key)
             }
         }
     }
@@ -75,18 +81,20 @@ class ViewController: UIViewController {
     }
     
     private func loadCardsToView() {
+        removeMatchedCardsFromView()
         var shapesFromModel: Set<NSAttributedString?> = Set(shapeToCard.keys)
         let shapesFromView = Set(shapesInView)
-        let matchedCards = game.matchedCards
         
         var newShapes = shapesFromModel.subtracting(shapesFromView)
         
-        for index in 0..<newShapes.count {
-            if shapesInView[index] == nil {
-                shapesInView[index] = shapesFromModel.removeFirst()
+        for index in shapesInView.indices {
+            if newShapes.count > 0,
+                shapesInView[index] == nil {
+                shapesInView[index] = newShapes.removeFirst()
             }
         }
         updateView()
+        
     }
     
     private func getShapeForCard(_ card: Card) {
@@ -136,24 +144,7 @@ class ViewController: UIViewController {
         }
     }
     
-//    private func removeMatchedCards() {
-//        for index in cardButtons.indices {
-//            if let card = shapeToCard[cardButtons[index].attributedTitle(for: .normal) ?? NSAttributedString(string: "")] {
-//                if game.matchedCards.contains(card) {
-//                    cardButtons[index].setAttributedTitle(nil, for: .normal)
-//                }
-//            }
-//        }
-//
-//        for (key, value) in shapeToCard {
-//            if game.matchedCards.contains(value) {
-//                shapeToCard.removeValue(forKey: key)
-//            }
-//        }
-//    }
-    
     private func updateView() {
-//        removeMatchedCards()
         for index in cardButtons.indices {
             if index < shapesInView.count {
                 cardButtons[index].setAttributedTitle(shapesInView[index], for: .normal)
