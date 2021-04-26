@@ -15,13 +15,12 @@ class ViewController: UIViewController {
     
     private(set) var game = SetGame()
     
-    var shapeToCard = [NSAttributedString: Card]()
-    var shapesInView = [NSAttributedString?]()
+    private var shapeToCard = [NSAttributedString: Card]()
+    private var shapesInView = [NSAttributedString?]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initialLoad()
-        loadCardsFromModel(12)
         updateView()
     }
     
@@ -37,15 +36,18 @@ class ViewController: UIViewController {
         loadCardsFromModel(3)
     }
     
+    private func initialLoad() {
+        for _ in cardButtons.indices {
+            shapesInView.append(nil)
+        }
+        loadCardsFromModel()
+    }
     
     private func loadCardsFromModel(_ count: Int = 12) {
         let modelCards = game.cards.subtracting(game.matchedCards)
-        var viewCards = Set<Card>()
-        for card in shapeToCard.values {
-            viewCards.insert(card)
-        }
-        
+        let viewCards = Set(shapeToCard.values)
         let unloadedCards = modelCards.subtracting(viewCards)
+        
         if unloadedCards.count > 2 {
             let range = unloadedCards.startIndex..<unloadedCards.index(unloadedCards.startIndex, offsetBy: count)
             for card in unloadedCards[range] {
@@ -55,7 +57,21 @@ class ViewController: UIViewController {
         loadCardsToView()
     }
     
-    private func removeMatchedCardsFromView() {
+    private func loadCardsToView() {
+        let shapesFromModel: Set<NSAttributedString?> = Set(shapeToCard.keys)
+        let shapesFromView = Set(shapesInView)
+        
+        var newShapes = shapesFromModel.subtracting(shapesFromView)
+        
+        for index in shapesInView.indices {
+            if newShapes.count > 0, shapesInView[index] == nil {
+                shapesInView[index] = newShapes.removeFirst()
+            }
+        }
+        updateView()
+    }
+    
+    private func removeMatchedCards() {
         for index in shapesInView.indices {
             if shapesInView[index] != nil, shapeToCard[shapesInView[index]!] == nil {
                 shapesInView[index] = nil
@@ -67,28 +83,6 @@ class ViewController: UIViewController {
                 shapeToCard.removeValue(forKey: key)
             }
         }
-    }
-    
-    private func initialLoad() {
-        for _ in cardButtons.indices {
-            shapesInView.append(nil)
-        }
-    }
-    
-    private func loadCardsToView() {
-        let shapesFromModel: Set<NSAttributedString?> = Set(shapeToCard.keys)
-        let shapesFromView = Set(shapesInView)
-        
-        var newShapes = shapesFromModel.subtracting(shapesFromView)
-        
-        for index in shapesInView.indices {
-            if newShapes.count > 0,
-                shapesInView[index] == nil {
-                shapesInView[index] = newShapes.removeFirst()
-            }
-        }
-        updateView()
-        
     }
     
     private func getShapeForCard(_ card: Card) {
@@ -162,7 +156,7 @@ class ViewController: UIViewController {
                 cardButtons[index].backgroundColor = .clear
             }
         }
-        removeMatchedCardsFromView()
+        removeMatchedCards()
     }
 }
 
