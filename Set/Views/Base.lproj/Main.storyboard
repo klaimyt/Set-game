@@ -323,6 +323,7 @@
                                 </state>
                                 <connections>
                                     <action selector="newGameButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uq5-b0-lXT"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="&quot;newGame&quot;" animates="NO" modalPresentationStyle="fullScreen" id="m4z-SB-jzS"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="3MA-dX-ARC">

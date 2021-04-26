@@ -37,7 +37,6 @@ class ViewController: UIViewController {
     @IBAction func newGameButtonPressed(_ sender: UIButton) {
     }
     
-
     @IBAction func deal3MoreCardsButtonPressed() {
         loadCardsFromModel(3)
     }
@@ -75,14 +74,13 @@ class ViewController: UIViewController {
     }
     
     private func initialLoad() {
-        for index in 0..<24 {
+        for _ in cardButtons.indices {
             shapesInView.append(nil)
         }
     }
     
     private func loadCardsToView() {
-        removeMatchedCardsFromView()
-        var shapesFromModel: Set<NSAttributedString?> = Set(shapeToCard.keys)
+        let shapesFromModel: Set<NSAttributedString?> = Set(shapeToCard.keys)
         let shapesFromView = Set(shapesInView)
         
         var newShapes = shapesFromModel.subtracting(shapesFromView)
@@ -145,6 +143,7 @@ class ViewController: UIViewController {
     }
     
     private func updateView() {
+        removeMatchedCardsFromView()
         for index in cardButtons.indices {
             if index < shapesInView.count {
                 cardButtons[index].setAttributedTitle(shapesInView[index], for: .normal)
@@ -171,6 +170,5 @@ class ViewController: UIViewController {
             }
         }
     }
-    
 }
 
