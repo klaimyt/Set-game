@@ -331,28 +331,32 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deal 3 More Cards" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vbK-JK-3hP">
-                                <rect key="frame" x="20" y="666.33333333333337" width="335" height="39.666666666666629"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="98H-Ia-NlU">
+                                <rect key="frame" x="20" y="666" width="335" height="52"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="33"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <state key="normal" title="Deal 3 More Cards">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="deal3MoreCardsButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="ksm-QF-loe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="z9l-4w-Hvc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="6AP-qg-LCB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3MA-dX-ARC" secondAttribute="trailing" constant="20" id="6D9-Uv-Yhw"/>
-                            <constraint firstItem="vbK-JK-3hP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="7X8-qx-uuO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rcT-E1-AUi" secondAttribute="trailing" constant="20" id="91p-aZ-r3N"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vbK-JK-3hP" secondAttribute="trailing" constant="20" id="CVh-Ow-jEE"/>
                             <constraint firstItem="3MA-dX-ARC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="CfA-c3-cdE"/>
+                            <constraint firstItem="98H-Ia-NlU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="rcT-E1-AUi" secondAttribute="bottom" constant="8" symbolic="YES" id="N12-63-12b"/>
                             <constraint firstItem="3MA-dX-ARC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="QiN-I4-aU0"/>
-                            <constraint firstItem="z9l-4w-Hvc" firstAttribute="top" secondItem="vbK-JK-3hP" secondAttribute="bottom" constant="20" id="TVI-j1-6ZJ"/>
                             <constraint firstItem="z9l-4w-Hvc" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="dbK-Dh-dNr"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="98H-Ia-NlU" secondAttribute="trailing" constant="20" id="eE4-HG-sOc"/>
+                            <constraint firstItem="98H-Ia-NlU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="f3T-cs-Tgk"/>
                             <constraint firstItem="rcT-E1-AUi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fP9-gq-CCQ"/>
-                            <constraint firstItem="vbK-JK-3hP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="rcT-E1-AUi" secondAttribute="bottom" id="miH-3m-0Jn"/>
                             <constraint firstItem="rcT-E1-AUi" firstAttribute="top" secondItem="3MA-dX-ARC" secondAttribute="bottom" constant="15" id="o2Q-IG-ijh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="z9l-4w-Hvc" secondAttribute="trailing" constant="20" id="o9e-Nf-beo"/>
+                            <constraint firstItem="z9l-4w-Hvc" firstAttribute="top" secondItem="98H-Ia-NlU" secondAttribute="bottom" constant="8" symbolic="YES" id="tNY-DV-QqL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

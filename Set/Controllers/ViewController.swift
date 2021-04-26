@@ -35,8 +35,13 @@ class ViewController: UIViewController {
     
 
     @IBAction func newGameButtonPressed(_ sender: UIButton) {
+    }
+    
+
+    @IBAction func deal3MoreCardsButtonPressed() {
         loadCardsFromModel(3)
     }
+    
     
     private func loadCardsFromModel(_ count: Int = 12) {
         let modelCards = game.cards.subtracting(game.matchedCards)
@@ -103,6 +108,14 @@ class ViewController: UIViewController {
     }
     
     private func removeMatchedCards() {
+        for index in cardButtons.indices {
+            if let card = shapeToCard[cardButtons[index].attributedTitle(for: .normal) ?? NSAttributedString(string: "")] {
+                if game.matchedCards.contains(card) {
+                    cardButtons[index].setAttributedTitle(nil, for: .normal)
+                }
+            }
+        }
+        
         for (key, value) in shapeToCard {
             if game.matchedCards.contains(value) {
                 shapeToCard.removeValue(forKey: key)
@@ -111,12 +124,13 @@ class ViewController: UIViewController {
     }
     
     private func updateView() {
+        removeMatchedCards()
         for index in cardButtons.indices {
             if index < shapesInView.count {
                 cardButtons[index].setAttributedTitle(shapesInView[index], for: .normal)
                 
                 if let shapeInView = shapesInView[index] {
-                    if game.chosenCards.contains(shapeToCard[shapeInView]!) {
+                    if shapeToCard[shapeInView] != nil, game.chosenCards.contains(shapeToCard[shapeInView]!) {
                         if game.isMatched == true {
                             cardButtons[index].backgroundColor = UIColor.green.withAlphaComponent(0.5)
                         } else if game.isMatched == false {
@@ -127,9 +141,13 @@ class ViewController: UIViewController {
                         cardButtons[index].layer.borderWidth = 0
                         cardButtons[index].backgroundColor = .white
                     }
-                } else {
-                    cardButtons[index].isHidden = true
                 }
+            }
+            
+            if cardButtons[index].attributedTitle(for: .normal) == nil {
+                cardButtons[index].isHidden = true
+            } else {
+                cardButtons[index].isHidden = false
             }
         }
     }
