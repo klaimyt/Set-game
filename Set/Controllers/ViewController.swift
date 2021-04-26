@@ -16,8 +16,7 @@ class ViewController: UIViewController {
     private(set) var game = SetGame()
     
     var shapeToCard = [NSAttributedString: Card]()
-    
-    var shapesInView = [NSAttributedString]()
+    var shapesInView = [NSAttributedString?]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +29,7 @@ class ViewController: UIViewController {
         if let attributedString = sender.attributedTitle(for: .normal),
             let card =  shapeToCard[attributedString] {
             game.chooseCard(card)
-            updateView(for: cardButtons.firstIndex(of: sender))
+            updateView()
         }
     }
     
@@ -111,47 +110,28 @@ class ViewController: UIViewController {
         }
     }
     
-    private func updateView(for buttonIndex: Int? = nil) {
-        let chosenButtons = cardButtons.filter { $0.layer.borderWidth == 3 }
+    private func updateView() {
         for index in cardButtons.indices {
             if index < shapesInView.count {
                 cardButtons[index].setAttributedTitle(shapesInView[index], for: .normal)
-            } else {
-                cardButtons[index].setAttributedTitle(nil, for: .normal)
-            }
-            
-            if let buttonIndex = buttonIndex {
-                if chosenButtons.count < 3 {
-                    cardButtons[buttonIndex].layer.borderWidth = 3
-                    if let isMatched = game.isMatched,
-                        cardButtons[index].layer.borderWidth == 3  {
-                        
-                        cardButtons[index].backgroundColor = isMatched ? .green : .orange
+                
+                if let shapeInView = shapesInView[index] {
+                    if game.chosenCards.contains(shapeToCard[shapeInView]!) {
+                        if game.isMatched == true {
+                            cardButtons[index].backgroundColor = UIColor.green.withAlphaComponent(0.5)
+                        } else if game.isMatched == false {
+                            cardButtons[index].backgroundColor = UIColor.orange.withAlphaComponent(0.5)
+                        }
+                        cardButtons[index].layer.borderWidth = 3.0
+                    } else {
+                        cardButtons[index].layer.borderWidth = 0
+                        cardButtons[index].backgroundColor = .white
                     }
                 } else {
-                    cardButtons[index].layer.borderWidth = 0
-                    cardButtons[index].backgroundColor = .white
+                    cardButtons[index].isHidden = true
                 }
             }
         }
-//        for (index, dictionary) in shapeToCard.enumerated() {
-//            if index < cardButtons.count {
-//                cardButtons[index].layer.borderWidth = game.chosenCards.contains(dictionary.value) ? 3.0 : 0
-//                if game.isMatched == true && game.chosenCards.contains(dictionary.value) {
-//                    cardButtons[index].backgroundColor = UIColor.green.withAlphaComponent(0.5)
-//                } else if game.isMatched == false && game.chosenCards.contains(dictionary.value) {
-//                    cardButtons[index].backgroundColor = UIColor.orange.withAlphaComponent(0.5)
-//                } else {
-//                    cardButtons[index].backgroundColor = UIColor.white
-//                }
-//
-//                if game.matchedCards.contains(dictionary.value) {
-//                    shapeToCard.removeValue(forKey: dictionary.key)
-//                } else {
-//                    cardButtons[index].setAttributedTitle(dictionary.key, for: .normal)
-//                }
-//            }
-//        }
     }
     
 }

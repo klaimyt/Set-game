@@ -60,10 +60,10 @@
 		2335AF7D260E7AA900AE378F /* Set */ = {
 			isa = PBXGroup;
 			children = (
-				2351F18A260E847100392DD1 /* Models */,
 				2351F183260E823E00392DD1 /* Helpers */,
-				2351F184260E824900392DD1 /* Controllers */,
+				2351F18A260E847100392DD1 /* Models */,
 				2351F185260E825300392DD1 /* Views */,
+				2351F184260E824900392DD1 /* Controllers */,
 				2335AF8C260E7AAF00AE378F /* Info.plist */,
 			);
 			path = Set;
